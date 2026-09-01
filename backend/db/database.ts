@@ -151,6 +151,31 @@ export const RecommendationSchema = new Schema<IRecommendation>({
   createdAt: { type: String },
 });
 
+export const PlacementSchema = new Schema<IPlacement>({
+  placementId: { type: String, required: true, unique: true },
+  instituteId: { type: String, required: true },
+  courseId: { type: String, required: true },
+  role: { type: String, required: true },
+  year: { type: String, required: true },
+  batchSize: { type: Number, required: true },
+  placedCount: { type: Number, required: true },
+  avgSalary: { type: String, required: true },
+  topRecruiters: [{ type: String }],
+  retentionRate6Month: { type: Number, default: 85 },
+});
+
+// ----------------------------------------------------
+// Exported Mongoose Models (MERN Stack Data Layer)
+// ----------------------------------------------------
+export const SkillModel = mongoose.models.Skill || mongoose.model<ISkill>('Skill', SkillSchema);
+export const CourseModel = mongoose.models.Course || mongoose.model<ICourse>('Course', CourseSchema);
+export const CourseSkillModel = mongoose.models.CourseSkill || mongoose.model<ICourseSkill>('CourseSkill', CourseSkillSchema);
+export const JobModel = mongoose.models.Job || mongoose.model<IJob>('Job', JobSchema);
+export const InstituteModel = mongoose.models.Institute || mongoose.model<IInstitute>('Institute', InstituteSchema);
+export const EmployerFeedbackModel = mongoose.models.EmployerFeedback || mongoose.model<IEmployerFeedback>('EmployerFeedback', EmployerFeedbackSchema);
+export const RecommendationModel = mongoose.models.Recommendation || mongoose.model<IRecommendation>('Recommendation', RecommendationSchema);
+export const PlacementModel = mongoose.models.Placement || mongoose.model<IPlacement>('Placement', PlacementSchema);
+
 // ----------------------------------------------------
 // Unified Resilient Repository Store
 // ----------------------------------------------------
@@ -166,6 +191,7 @@ class DatabaseStore {
   private recommendations: IRecommendation[] = [];
   private placements: IPlacement[] = [];
   private isInitialized = false;
+  private mongoConnected = false;
 
   constructor() {
     this.seedInMemory();
@@ -178,15 +204,56 @@ class DatabaseStore {
     if (mongoUri && mongoUri.startsWith('mongodb')) {
       try {
         await mongoose.connect(mongoUri, { serverSelectionTimeoutMS: 2000 });
-        console.log('[Database] Connected to external MongoDB successfully.');
+        this.mongoConnected = true;
+        console.log('[Database] Connected to MongoDB database successfully via Mongoose.');
+        await this.syncToMongo();
       } catch (err) {
         console.log('[Database] MongoDB connection bypassed (using active in-memory repository store):', (err as Error).message);
       }
     } else {
-      console.log('[Database] Running unified in-memory repository with zero latency.');
+      console.log('[Database] Running unified MERN repository with zero-latency in-memory data cache.');
     }
 
     this.isInitialized = true;
+  }
+
+  private async syncToMongo() {
+    if (!this.mongoConnected) return;
+    try {
+      const count = await SkillModel.countDocuments();
+      if (count === 0) {
+        await SkillModel.insertMany(this.skills);
+        await CourseModel.insertMany(this.courses);
+        await CourseSkillModel.insertMany(this.courseSkills);
+        await JobModel.insertMany(this.jobs);
+        await InstituteModel.insertMany(this.institutes);
+        await EmployerFeedbackModel.insertMany(this.employerFeedback);
+        await RecommendationModel.insertMany(this.recommendations);
+        await PlacementModel.insertMany(this.placements);
+        console.log('[Database] MongoDB collections populated with Maharashtra Skill seed dataset.');
+      }
+    } catch (e) {
+      console.warn('[Database] Background MongoDB initial sync notice:', (e as Error).message);
+    }
+  }
+
+  public getStatus() {
+    return {
+      engine: 'MongoDB + Mongoose (MERN Stack)',
+      mongooseReadyState: mongoose.connection.readyState, // 0 = disconnected, 1 = connected, 2 = connecting, 3 = disconnecting
+      connectionStatus: mongoose.connection.readyState === 1 ? 'Connected (Live MongoDB)' : 'Local MERN In-Memory Replica',
+      mongoUriConfigured: !!process.env.MONGODB_URI,
+      collections: {
+        skills: this.skills.length,
+        courses: this.courses.length,
+        courseSkills: this.courseSkills.length,
+        institutes: this.institutes.length,
+        jobs: this.jobs.length,
+        employerFeedback: this.employerFeedback.length,
+        recommendations: this.recommendations.length,
+        placements: this.placements.length,
+      },
+    };
   }
 
   public seedInMemory() {
@@ -369,53 +436,83 @@ class DatabaseStore {
 
   // --- Aggregated Stats ---
   public getStats(district = 'Pune') {
+    const distInfo =
+      MAHARASHTRA_DISTRICTS_DATA.find(d => d.name.toLowerCase() === district.toLowerCase()) ||
+      MAHARASHTRA_DISTRICTS_DATA[0];
+
     const activeJobs = this.getJobs(district);
-    const totalPostings = activeJobs.reduce((acc, j) => acc + j.activePostingsCount, 0) * 8 + 1200;
+    const totalPostings = activeJobs.length > 0 
+      ? activeJobs.reduce((acc, j) => acc + j.activePostingsCount, 0) * 8 + 1200
+      : distInfo.activeJobCount;
+
     const institutesInDist = this.getInstitutes(district);
-    const totalTrainersNeeded = institutesInDist.reduce((acc, i) => acc + i.trainersNeeded, 0);
-    const avgLabReadiness = Math.round(
-      institutesInDist.reduce((acc, i) => acc + i.labReadinessScore, 0) / (institutesInDist.length || 1)
-    );
-    const criticalGapsCount = this.recommendations.filter(
-      r => r.priority === 'CRITICAL' && (district === 'all' || r.district.toLowerCase() === district.toLowerCase())
-    ).length;
-    const coursesNeedingUpdate = this.courses.filter(c => c.lastUpdated < '2023-01-01').length;
+    const totalTrainersNeeded = institutesInDist.length > 0 
+      ? institutesInDist.reduce((acc, i) => acc + i.trainersNeeded, 0)
+      : Math.round(distInfo.criticalGapsCount * 2.2);
+
+    const avgLabReadiness = institutesInDist.length > 0
+      ? Math.round(institutesInDist.reduce((acc, i) => acc + i.labReadinessScore, 0) / institutesInDist.length)
+      : distInfo.workforceReadiness;
+
+    const criticalGapsCount = distInfo.criticalGapsCount;
+    const coursesNeedingUpdate = Math.max(2, Math.round(distInfo.criticalGapsCount * 0.75));
 
     return {
-      district,
+      district: distInfo.name,
       totalActiveJobSignals: totalPostings,
-      criticalSkillGaps: Math.max(3, criticalGapsCount),
+      criticalSkillGaps: criticalGapsCount,
       coursesNeedingUpdate: coursesNeedingUpdate,
-      avgTrainerShortagePercent: 34.5,
-      trainersDeficitCount: totalTrainersNeeded || 8,
+      avgTrainerShortagePercent: Math.round(100 - distInfo.workforceReadiness * 0.8),
+      trainersDeficitCount: totalTrainersNeeded || 6,
       avgLabReadinessScore: avgLabReadiness,
-      overallAlignmentScore: 62.4,
-      totalEnrolledTrainees: institutesInDist.reduce((acc, i) => acc + i.activeEnrollments, 0),
-      districtCapacity: institutesInDist.reduce((acc, i) => acc + i.capacity, 0),
-      placementRatePercent: 88.2,
+      overallAlignmentScore: Math.round(distInfo.workforceReadiness * 0.95),
+      totalEnrolledTrainees: institutesInDist.length > 0 
+        ? institutesInDist.reduce((acc, i) => acc + i.activeEnrollments, 0)
+        : distInfo.itiCount * 85,
+      districtCapacity: institutesInDist.length > 0
+        ? institutesInDist.reduce((acc, i) => acc + i.capacity, 0)
+        : distInfo.itiCount * 110,
+      placementRatePercent: Math.round(75 + (distInfo.workforceReadiness / 10)),
+      topSector: distInfo.topSector,
+      focusRoles: distInfo.focusRoles,
     };
   }
 
   // --- Market Intelligence for Specific Role ---
   public getMarketIntelligence(role = 'EV Technician', district = 'Pune') {
-    const relevantJobs = this.jobs.filter(j => j.role.toLowerCase() === role.toLowerCase() || j.jobTitle.toLowerCase().includes(role.toLowerCase()));
-    const relevantSkills = this.skills.filter(s => s.category.includes('Powertrain') || s.category.includes('Safety') || s.category.includes('Diagnostics') || s.category.includes('Automotive') || s.demandScore > 80);
+    const distInfo =
+      MAHARASHTRA_DISTRICTS_DATA.find(d => d.name.toLowerCase() === district.toLowerCase()) ||
+      MAHARASHTRA_DISTRICTS_DATA[0];
+
+    const relevantJobs = this.jobs.filter(
+      j =>
+        (j.role.toLowerCase() === role.toLowerCase() || j.jobTitle.toLowerCase().includes(role.toLowerCase())) &&
+        (district === 'all' || j.district.toLowerCase() === district.toLowerCase())
+    );
+    const relevantSkills = this.skills.filter(
+      s =>
+        s.category.includes('Powertrain') ||
+        s.category.includes('Safety') ||
+        s.category.includes('Diagnostics') ||
+        s.category.includes('Automotive') ||
+        s.demandScore > 80
+    );
 
     const evidenceStats = {
-      jobPostingCount: 1480,
-      difficultyPercent: 78,
-      yoyGrowthPercent: 48.5,
+      jobPostingCount: distInfo.activeJobCount,
+      difficultyPercent: Math.round(100 - distInfo.workforceReadiness * 0.5),
+      yoyGrowthPercent: Math.round(distInfo.demandScore * 0.52),
       avgSalaryRange: '₹3.2 - ₹5.0 LPA',
       experienceDistribution: { '0-1 yr': 25, '1-3 yrs': 55, '3+ yrs': 20 },
-      topClusters: ['Chakan MIDC (64%)', 'Bhosari Auto Cluster (22%)', 'Talegaon (14%)'],
-      topHiringEmployers: ['Tata Motors EV (38%)', 'Bajaj Auto Chetak (24%)', 'Mahindra Electric (18%)', 'Others (20%)'],
-      curriculumCoveragePercent: 42,
+      topClusters: [`${distInfo.name} Industrial Area`, `${distInfo.topSector} Cluster`],
+      topHiringEmployers: ['Local Anchor Industries', 'MIDC Component Manufacturers', 'State Enterprise Partners'],
+      curriculumCoveragePercent: distInfo.workforceReadiness,
     };
 
     return {
       role,
-      district,
-      demandScore: 94,
+      district: distInfo.name,
+      demandScore: distInfo.demandScore,
       evidence: evidenceStats,
       skillDemandRanked: relevantSkills.map(skill => {
         const courseSkill = this.courseSkills.find(cs => cs.skillId === skill.skillId);
@@ -423,20 +520,25 @@ class DatabaseStore {
           skillId: skill.skillId,
           skillName: skill.skillName,
           category: skill.category,
-          demandScore: skill.demandScore,
+          demandScore: Math.min(99, Math.round(skill.demandScore * (distInfo.demandScore / 90))),
           growthRate: skill.growthRatePercent,
           difficultyLevel: skill.difficultyLevel,
           coverageStatus: courseSkill ? courseSkill.coverageLevel : 'NOT_COVERED',
           practicalRatio: courseSkill ? Math.round(courseSkill.practicalHoursRatio * 100) : 0,
-          gapSeverity: !courseSkill || courseSkill.coverageLevel === 'NOT_COVERED' ? 'CRITICAL' : courseSkill.coverageLevel === 'PARTIAL' ? 'HIGH' : 'LOW',
+          gapSeverity:
+            !courseSkill || courseSkill.coverageLevel === 'NOT_COVERED'
+              ? 'CRITICAL'
+              : courseSkill.coverageLevel === 'PARTIAL'
+              ? 'HIGH'
+              : 'LOW',
         };
       }),
       wageTrend: [
-        { quarter: 'Q1 2025', avgSalary: 280000, demandIndex: 72 },
-        { quarter: 'Q2 2025', avgSalary: 310000, demandIndex: 79 },
-        { quarter: 'Q3 2025', avgSalary: 335000, demandIndex: 85 },
-        { quarter: 'Q4 2025', avgSalary: 350000, demandIndex: 89 },
-        { quarter: 'Q1 2026', avgSalary: 380000, demandIndex: 94 },
+        { quarter: 'Q1 2025', avgSalary: 280000, demandIndex: Math.round(distInfo.demandScore * 0.78) },
+        { quarter: 'Q2 2025', avgSalary: 310000, demandIndex: Math.round(distInfo.demandScore * 0.85) },
+        { quarter: 'Q3 2025', avgSalary: 335000, demandIndex: Math.round(distInfo.demandScore * 0.92) },
+        { quarter: 'Q4 2025', avgSalary: 350000, demandIndex: Math.round(distInfo.demandScore * 0.96) },
+        { quarter: 'Q1 2026', avgSalary: 380000, demandIndex: distInfo.demandScore },
       ],
     };
   }

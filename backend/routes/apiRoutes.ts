@@ -15,8 +15,14 @@ router.get('/health', (req: Request, res: Response) => {
     status: 'online',
     timestamp: new Date().toISOString(),
     platform: 'MahaSkill AI - Skill Intelligence & Decision Support Platform',
-    version: '1.0.0 (SIH Pilot Edition)',
+    version: '1.0.0 (MERN Stack Edition)',
+    database: dbStore.getStatus(),
   });
+});
+
+// MongoDB & Data Layer Status
+router.get('/db/status', (req: Request, res: Response) => {
+  res.json(dbStore.getStatus());
 });
 
 // Overview KPI stats
