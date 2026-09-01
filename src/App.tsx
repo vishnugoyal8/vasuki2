@@ -12,11 +12,13 @@ import { InstituteDashboardPage } from './pages/InstituteDashboardPage.tsx';
 import { EmployerFeedbackPage } from './pages/EmployerFeedbackPage.tsx';
 import { resetSeedDataset } from './lib/api.ts';
 import { CheckCircle2, RefreshCw } from 'lucide-react';
+import { LanguageProvider, useLanguage } from './context/LanguageContext.tsx';
 
-export function App() {
+function AppContent() {
   const [activePage, setActivePage] = useState<PageId>('landing');
   const [selectedDistrict, setSelectedDistrict] = useState<string>('Pune');
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const { t } = useLanguage();
 
   const handleResetData = async () => {
     try {
@@ -110,7 +112,7 @@ export function App() {
       <footer className="bg-white border-t border-slate-200 py-5 px-4 sm:px-6 text-center text-xs text-slate-500 print:hidden">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-2">
-            <span className="font-bold text-slate-800">SkillIntel Maharashtra</span>
+            <span className="font-bold text-slate-800">{t.appName}</span>
             <span>&middot; Smart India Hackathon Submission</span>
             <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-mono text-[10px] border border-slate-200">
               Demo / Synthetic Pilot Dataset
@@ -122,6 +124,14 @@ export function App() {
         </div>
       </footer>
     </div>
+  );
+}
+
+export function App() {
+  return (
+    <LanguageProvider>
+      <AppContent />
+    </LanguageProvider>
   );
 }
 
