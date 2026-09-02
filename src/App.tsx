@@ -113,7 +113,6 @@ function AppContent() {
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <span className="font-bold text-slate-800">{t.appName}</span>
-            <span>&middot; Smart India Hackathon Submission</span>
             <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-mono text-[10px] border border-slate-200">
               Demo / Synthetic Pilot Dataset
             </span>

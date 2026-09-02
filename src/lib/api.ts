@@ -1,5 +1,5 @@
 /**
- * Typed API Client for MahaSkill AI Platform
+ * Typed API Client for CareerSync Platform
  */
 
 import {

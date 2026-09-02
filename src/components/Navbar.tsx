@@ -76,7 +76,7 @@ export const Navbar: React.FC<Props> = ({
           className="flex items-center gap-3 cursor-pointer select-none group"
         >
           <div className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center font-bold text-lg text-white shadow-sm group-hover:bg-blue-500 transition-colors">
-            {language === 'mr' ? 'म' : 'M'}
+            {language === 'mr' ? 'क' : 'C'}
           </div>
           <div>
             <div className="flex items-center gap-2">
@@ -88,7 +88,7 @@ export const Navbar: React.FC<Props> = ({
               </span>
             </div>
             <p className="text-[10px] text-slate-400 uppercase tracking-wider">
-              {t.appSubtitle} &middot; SIH Pilot
+              {t.appSubtitle}
             </p>
           </div>
         </div>

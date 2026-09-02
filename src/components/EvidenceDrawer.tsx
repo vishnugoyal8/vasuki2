@@ -195,7 +195,7 @@ export const EvidenceDrawer: React.FC<Props> = ({ isOpen, onClose, data }) => {
             {/* Footer */}
             <div className="p-4 border-t border-slate-100 bg-slate-50 flex items-center justify-between">
               <span className="text-[11px] text-slate-400">
-                Traceable SIH Labour Intelligence Record
+                Traceable Labour Market Intelligence Record
               </span>
               <button
                 onClick={onClose}

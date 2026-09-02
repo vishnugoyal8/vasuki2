@@ -36,7 +36,7 @@ async function startServer() {
   }
 
   app.listen(PORT, '0.0.0.0', () => {
-    console.log(`[MahaSkill AI Server] Listening on http://0.0.0.0:${PORT}`);
+    console.log(`[CareerSync Server] Listening on http://0.0.0.0:${PORT}`);
   });
 }
 

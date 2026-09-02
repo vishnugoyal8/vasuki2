@@ -21,7 +21,6 @@ interface Props {
 }
 
 export const LandingPage: React.FC<Props> = ({ onNavigate, selectedDistrict }) => {
-  // Mouse tilt physics for floating anti-gravity cards
   const containerRef = useRef<HTMLDivElement>(null);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -102,7 +101,7 @@ export const LandingPage: React.FC<Props> = ({ onNavigate, selectedDistrict }) =
           className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-800 text-xs font-semibold mb-6 shadow-xs"
         >
           <span className="w-2 h-2 rounded-full bg-indigo-600 animate-ping" />
-          <span>Smart India Hackathon &middot; Government of Maharashtra Labour Intelligence</span>
+          <span>Government of Maharashtra Labour Intelligence</span>
         </motion.div>
 
         {/* Hero Headline */}
@@ -283,7 +282,7 @@ export const LandingPage: React.FC<Props> = ({ onNavigate, selectedDistrict }) =
               The Closed-Loop Decision Framework
             </h2>
             <p className="text-sm text-slate-600 mt-2">
-              Unlike static job boards, MahaSkill AI continuously links raw industry hiring signals
+              Unlike static job boards, CareerSync continuously links raw industry hiring signals
               to institute curriculum modernization, trainer upskilling, and verifiable employer feedback.
             </p>
           </div>

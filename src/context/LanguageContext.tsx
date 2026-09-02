@@ -15,13 +15,13 @@ const LanguageContext = createContext<LanguageContextType>({
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [language, setLanguageState] = useState<Language>(() => {
-    const saved = localStorage.getItem('mahaskill_lang') as Language;
+    const saved = (localStorage.getItem('careersync_lang') || localStorage.getItem('mahaskill_lang')) as Language;
     return saved && ['en', 'mr', 'hi'].includes(saved) ? saved : 'en';
   });
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
-    localStorage.setItem('mahaskill_lang', lang);
+    localStorage.setItem('careersync_lang', lang);
   };
 
   const t = translations[language] || translations.en;

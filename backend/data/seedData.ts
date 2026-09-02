@@ -1,7 +1,6 @@
 /**
  * DEMO / SYNTHETIC DATASET — PILOT FOR PUNE DISTRICT (AUTOMOTIVE & EV SECTOR)
  * Skill Intelligence & Decision Support Platform for Government of Maharashtra
- * Smart India Hackathon Submission
  */
 
 import {

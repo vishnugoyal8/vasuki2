@@ -1,5 +1,5 @@
 {
-  "name": "MahaSkill AI - Skill Intelligence & Training Planning Platform",
+  "name": "CareerSync - Skill Intelligence & Training Planning Platform",
   "description": "Labour-market intelligence and curriculum-alignment decision support platform for the Government of Maharashtra, turning industry demand signals into district-, role-, and institute-level training recommendations.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]

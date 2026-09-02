@@ -73,13 +73,13 @@ export interface Translations {
 
 export const translations: Record<Language, Translations> = {
   en: {
-    appName: 'SkillIntel Maharashtra',
+    appName: 'CareerSync',
     appSubtitle: 'Labour Market Intelligence System',
     decisionSupport: 'Decision Support',
     districtLabel: 'District',
     sectorLabel: 'Sector',
     resetDemoData: 'Reset Baseline',
-    pilotTag: 'SIH Pilot &middot; Pune EV Cluster',
+    pilotTag: 'Maharashtra Labour Intelligence &middot; Pune EV Cluster',
 
     navGovDashboard: 'Gov Dashboard',
     navMarketIntel: 'Market Intel',
@@ -139,13 +139,13 @@ export const translations: Record<Language, Translations> = {
   },
 
   mr: {
-    appName: 'कौशल्य-इंटेलीजन्स महाराष्ट्र',
+    appName: 'CareerSync',
     appSubtitle: 'कामगार बाजार बुद्धिमत्ता व निर्णय प्रणाली',
     decisionSupport: 'निर्णय सहाय्य',
     districtLabel: 'जिल्हा',
     sectorLabel: 'क्षेत्र',
     resetDemoData: 'डेमो रीसेट करा',
-    pilotTag: 'महाराष्ट्र शासन &middot; पुणे ईव्ही क्लस्टर पायलट',
+    pilotTag: 'महाराष्ट्र शासन &middot; पुणे ईव्ही क्लस्टर',
 
     navGovDashboard: 'शासन डॅशबोर्ड',
     navMarketIntel: 'बाजार बुद्धिमत्ता',
@@ -205,13 +205,13 @@ export const translations: Record<Language, Translations> = {
   },
 
   hi: {
-    appName: 'कौशल-इंटेल महाराष्ट्र',
+    appName: 'CareerSync',
     appSubtitle: 'श्रम बाज़ार आसूचना एवं निर्णय प्रणाली',
     decisionSupport: 'निर्णय समर्थन',
     districtLabel: 'ज़िला',
     sectorLabel: 'क्षेत्र',
     resetDemoData: 'डेटा रीसेट करें',
-    pilotTag: 'महाराष्ट्र शासन &middot; पुणे ईवी क्लस्टर पायलट',
+    pilotTag: 'महाराष्ट्र शासन &middot; पुणे ईवी क्लस्टर',
 
     navGovDashboard: 'शासकीय डैशबोर्ड',
     navMarketIntel: 'बाज़ार आसूचना',

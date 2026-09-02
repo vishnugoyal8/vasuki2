@@ -14,7 +14,7 @@ router.get('/health', (req: Request, res: Response) => {
   res.json({
     status: 'online',
     timestamp: new Date().toISOString(),
-    platform: 'MahaSkill AI - Skill Intelligence & Decision Support Platform',
+    platform: 'CareerSync - Skill Intelligence & Decision Support Platform',
     version: '1.0.0 (MERN Stack Edition)',
     database: dbStore.getStatus(),
   });

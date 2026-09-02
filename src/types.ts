@@ -1,4 +1,4 @@
-// Realistic Maharashtra & Pune EV Demo Dataset (Synthetic Data for SIH Pilot)
+// Realistic Maharashtra & Pune EV Demo Dataset (Synthetic Data for Pilot Cluster)
 // All data points are strictly traceable with realistic labour market metrics.
 
 export interface ISkill {
