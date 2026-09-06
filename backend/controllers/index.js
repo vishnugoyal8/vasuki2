@@ -1,0 +1,9 @@
+export * as skillController from '../modules/skills/skill.controller.js';
+export * as courseController from '../modules/courses/course.controller.js';
+export * as jobController from '../modules/jobs/job.controller.js';
+export * as instituteController from '../modules/institutes/institute.controller.js';
+export * as employerController from '../modules/employers/employer.controller.js';
+export * as recommendationController from '../modules/recommendations/recommendation.controller.js';
+export * as placementController from '../modules/placements/placement.controller.js';
+export * as analyticsController from '../modules/analytics/analytics.controller.js';
+export * as aiController from '../modules/ai/ai.controller.js';
