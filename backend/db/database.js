@@ -39,6 +39,7 @@ class DatabaseStore {
   async initialize() {
     if (this.isInitialized) return;
     const connected = await connectDatabase();
+    
     if (connected) {
       await this.syncToMongo();
     }

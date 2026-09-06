@@ -1,32 +1,51 @@
-import mongoose from 'mongoose';
-import { config } from '../config/env.js';
+import mongoose from "mongoose";
+import { config } from "../config/env.js";
 
 let isConnected = false;
 
 export const connectDatabase = async () => {
-  if (isConnected) return true;
+  console.log("[Database] connectDatabase() called");
+
+  if (isConnected) {
+    console.log("[Database] Already connected");
+    return true;
+  }
 
   const mongoUri = config.mongodbUri;
-  if (mongoUri && mongoUri.startsWith('mongodb')) {
-    try {
-      await mongoose.connect(mongoUri, { serverSelectionTimeoutMS: 2000 });
-      isConnected = mongoose.connection.readyState === 1;
-      console.log('[Database] Connected to MongoDB database successfully via Mongoose.');
-      return isConnected;
-    } catch (err) {
-      console.log('[Database] MongoDB connection bypassed (using active in-memory repository store):', err.message);
-      isConnected = false;
-      return false;
-    }
-  } else {
-    console.log('[Database] Running unified MERN repository with zero-latency in-memory data cache.');
+
+  console.log(
+    "[Database] MongoDB URI configured:",
+    !!mongoUri
+  );
+
+  if (!mongoUri) {
+    console.log("[Database] MONGODB_URI is missing");
+    return false;
+  }
+
+  try {
+    const conn = await mongoose.connect(mongoUri);
+
+    isConnected = true;
+
+    console.log(
+      `[Database] MongoDB Connected: ${conn.connection.host}`
+    );
+
+    return true;
+  } catch (error) {
+    console.error(
+      "[Database] MongoDB connection failed:",
+      error.message
+    );
+
     isConnected = false;
     return false;
   }
 };
 
-export const isMongoConnected = () => isConnected && mongoose.connection.readyState === 1;
-
-export const getMongooseReadyState = () => mongoose.connection.readyState;
+export const isMongoConnected = () => {
+  return isConnected && mongoose.connection.readyState === 1;
+};
 
 export default connectDatabase;

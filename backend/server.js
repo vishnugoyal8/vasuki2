@@ -23,7 +23,8 @@ const PORT = config.port || 5000;
 
 const startServer = async () => {
   try {
-    await dbStore.initialize();
+    
+      await dbStore.initialize();
 
     app.listen(PORT, () => {
       console.log(`Server running on http://localhost:${PORT}`);
