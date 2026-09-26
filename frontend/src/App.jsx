@@ -1,34 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { store } from './redux/store.js';
 import { MainLayout } from './layouts/MainLayout.jsx';
 import { AppRoutes } from './routes/AppRoutes.jsx';
-import { resetSeedDataset } from './lib/api.js';
 import { LanguageProvider } from './context/LanguageContext.jsx';
+import { AuthProvider, useAuth } from './context/AuthContext.jsx';
 
 function AppContent() {
+  const { user } = useAuth();
   const [activePage, setActivePage] = useState('landing');
   const [selectedDistrict, setSelectedDistrict] = useState('Pune');
-  const [toastMessage, setToastMessage] = useState(null);
 
-  const handleResetData = async () => {
-    try {
-      await resetSeedDataset();
-      setToastMessage('Demo dataset reset to fresh baseline.');
-      setTimeout(() => setToastMessage(null), 3000);
-    } catch (err) {
-      console.error(err);
+  // If a user logs in, automatically navigate to their role dashboard
+  useEffect(() => {
+    if (user && user.role) {
+      setActivePage(user.role);
     }
-  };
+  }, [user]);
 
   return (
     <MainLayout
       activePage={activePage}
-      onSelectPage={setActivePage}
-      selectedDistrict={selectedDistrict}
-      onSelectDistrict={setSelectedDistrict}
-      onResetData={handleResetData}
-      toastMessage={toastMessage}
+      onNavigate={setActivePage}
     >
       <AppRoutes
         activePage={activePage}
@@ -44,7 +37,9 @@ export function App() {
   return (
     <Provider store={store}>
       <LanguageProvider>
-        <AppContent />
+        <AuthProvider>
+          <AppContent />
+        </AuthProvider>
       </LanguageProvider>
     </Provider>
   );

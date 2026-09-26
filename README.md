@@ -1,4 +1,4 @@
-# CareerSync / VASUK_i Platform (MERN Architecture)
+# SkillScan Platform (MERN Architecture)
 
 Skill intelligence, labour-market analytics, and trade-curriculum alignment decision platform for the Directorate of Vocational Education & Training (DVET), Government of Maharashtra.
 
@@ -9,7 +9,7 @@ Skill intelligence, labour-market analytics, and trade-curriculum alignment deci
 The repository is structured as a decoupled MERN stack:
 
 ```
-VASUK_i/
+skillscan-platform/
 ├── frontend/               # React (Vite) + Redux Toolkit + TailwindCSS + JSX
 │   ├── package.json
 │   ├── vite.config.js

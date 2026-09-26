@@ -49,9 +49,9 @@ export const SEED_INSTITUTES = [
   },
   {
     instituteId: 'INST_POLY_PUNE',
-    name: 'Government Polytechnic Pune (Autonomous)',
+    name: 'Model Technical Polytechnic Institute (Autonomous)',
     district: 'Pune',
-    cluster: 'Shivaji Nagar / University Road',
+    cluster: 'Central Technical Education Cluster',
     type: 'Polytechnic',
     lat: 18.5362,
     lng: 73.8306,

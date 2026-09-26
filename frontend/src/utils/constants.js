@@ -9,10 +9,10 @@ export const DISTRICTS = [
 ];
 
 export const PRIORITY_COLORS = {
-  CRITICAL: 'bg-red-50 text-red-700 border-red-200',
-  HIGH: 'bg-amber-50 text-amber-700 border-amber-200',
-  MEDIUM: 'bg-blue-50 text-blue-700 border-blue-200',
-  LOW: 'bg-slate-50 text-slate-700 border-slate-200',
+  CRITICAL: 'bg-[#C62828]/10 text-[#C62828] border-[#C62828]/30',
+  HIGH: 'bg-[#F4B942]/15 text-[#D96B1F] border-[#F4B942]/40',
+  MEDIUM: 'bg-[#E8F1F8] text-[#0056A6] border-[#0056A6]/30',
+  LOW: 'bg-[#F7F8FA] text-[#666666] border-[#DDE3E8]',
 };
 
 export const STATUS_LABELS = {

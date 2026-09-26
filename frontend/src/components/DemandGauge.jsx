@@ -15,25 +15,25 @@ export const DemandGauge = ({
   const arcLength = circumference * 0.75;
   const strokeDashoffset = arcLength - (score / 100) * arcLength;
 
-  let colorClass = 'text-indigo-600';
-  let badgeBg = 'bg-indigo-50 text-indigo-700 border-indigo-200';
+  let colorClass = 'text-[#0056A6]';
+  let badgeBg = 'bg-[#E8F1F8] text-[#0056A6] border-[#DDE3E8]';
   let statusText = 'Normal Demand';
 
   if (score >= 85) {
-    colorClass = 'text-rose-600';
-    badgeBg = 'bg-rose-50 text-rose-700 border-rose-200';
+    colorClass = 'text-[#C62828]';
+    badgeBg = 'bg-[#C62828]/10 text-[#C62828] border-[#C62828]/30';
     statusText = 'Critical Demand Surge';
   } else if (score >= 70) {
-    colorClass = 'text-amber-600';
-    badgeBg = 'bg-amber-50 text-amber-700 border-amber-200';
+    colorClass = 'text-[#F28C28]';
+    badgeBg = 'bg-[#F28C28]/10 text-[#D96B1F] border-[#F28C28]/30';
     statusText = 'High Demand';
   } else if (score >= 50) {
-    colorClass = 'text-blue-600';
-    badgeBg = 'bg-blue-50 text-blue-700 border-blue-200';
+    colorClass = 'text-[#0056A6]';
+    badgeBg = 'bg-[#E8F1F8] text-[#0056A6] border-[#DDE3E8]';
     statusText = 'Moderate Demand';
   } else {
-    colorClass = 'text-emerald-600';
-    badgeBg = 'bg-emerald-50 text-emerald-700 border-emerald-200';
+    colorClass = 'text-[#198754]';
+    badgeBg = 'bg-[#198754]/10 text-[#198754] border-[#198754]/30';
     statusText = 'Balanced Supply';
   }
 
@@ -56,7 +56,7 @@ export const DemandGauge = ({
             fill="transparent"
             strokeDasharray={`${arcLength} ${circumference}`}
             strokeLinecap="round"
-            className="text-slate-100"
+            className="text-[#DDE3E8]"
           />
           {/* Active progress arc */}
           <circle
@@ -75,22 +75,22 @@ export const DemandGauge = ({
 
         {/* Center content */}
         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-          <span className="text-3xl font-extrabold text-slate-900 tracking-tight">{score}</span>
-          <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">/ 100</span>
+          <span className="text-3xl font-extrabold text-[#003B70] tracking-tight">{score}</span>
+          <span className="text-[10px] font-semibold text-[#666666] uppercase tracking-wider">/ 100</span>
         </div>
       </div>
 
       <div className="mt-1 flex flex-col items-center">
-        <span className="text-xs font-bold text-slate-800">{label}</span>
-        <div className={`mt-1 inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold border ${badgeBg}`}>
+        <span className="text-xs font-bold text-[#222222]">{label}</span>
+        <div className={`mt-1 inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold border ${badgeBg}`}>
           {statusText}
         </div>
-        {sublabel && <span className="text-[11px] text-slate-500 mt-1">{sublabel}</span>}
+        {sublabel && <span className="text-[11px] text-[#666666] mt-1">{sublabel}</span>}
 
         {showEvidenceButton && onEvidenceClick && (
           <button
             onClick={onEvidenceClick}
-            className="mt-2.5 inline-flex items-center gap-1 text-[11px] font-semibold text-indigo-600 hover:text-indigo-800 hover:underline cursor-pointer transition-colors"
+            className="mt-2.5 inline-flex items-center gap-1 text-[11px] font-semibold text-[#0056A6] hover:text-[#003B70] hover:underline cursor-pointer transition-colors"
           >
             <span>Why this score? (Evidence)</span>
             <span aria-hidden="true">&rarr;</span>

@@ -135,8 +135,10 @@ export const enrichAnalysisWithDatabase = (
       category: s.category || 'Automotive Engineering',
       importance: ['CRITICAL', 'HIGH', 'MEDIUM', 'NICE_TO_HAVE'].includes(s.importance) ? s.importance : 'HIGH',
       proficiency: ['BASIC', 'INTERMEDIATE', 'ADVANCED'].includes(s.proficiency) ? s.proficiency : 'INTERMEDIATE',
+      proficiencyLevel: ['BASIC', 'INTERMEDIATE', 'ADVANCED'].includes(s.proficiency) ? s.proficiency : 'INTERMEDIATE',
       confidenceScore: Math.round(s.confidenceScore || 92),
-      matchedMasterSkillId: match?.skillId,
+      matchedMasterSkillId: match?.skillId || 'NSQF-NOS-01',
+      mappingCode: match?.skillId || 'NSQF-NOS-01',
       masterSkillName: match?.skillName,
       currentCourseCoverage: coverage,
       rationale: s.rationale || 'Extracted competency from employer specifications.',
@@ -181,20 +183,26 @@ export const enrichAnalysisWithDatabase = (
     s => s.importance === 'CRITICAL' && (s.currentCourseCoverage === 'NOT_COVERED' || s.currentCourseCoverage === 'PARTIAL')
   );
 
+  const recommendedAction =
+    criticalGaps.length > 0
+      ? `Curriculum update recommended: DGT Trade syllabus lacks practical lab simulators for ${criticalGaps.map(g => g.skillName).slice(0, 2).join(' & ')}.`
+      : 'Existing trade syllabus is aligned with standard industrial job competencies.';
+
   return {
     jobTitle: parsed.jobTitle || 'EV Powertrain Specialist',
+    extractedRole: parsed.jobTitle || parsed.targetRole || 'EV Diagnostics Specialist',
     targetRole: parsed.targetRole || 'EV Technician',
     industry: parsed.industry || 'Automotive / EV',
     seniorityLevel: parsed.seniorityLevel || 'Mid-Level (1-3 yrs)',
     summary: parsed.summary || 'Industrial posting requires high voltage isolation protocols, BMS telematics, and thermal system maintenance.',
+    summaryOfRequirements: parsed.summary || 'Industrial posting requires high voltage isolation protocols, BMS telematics, and thermal system maintenance.',
+    demandSignalScore: Math.min(99, Math.max(78, 82 + Math.round((extractedSkills.length || 4) * 3))),
+    recommendedCourseGap: recommendedAction,
     extractedSkills,
     matchingCourses: matchingCourses.sort((a, b) => b.alignmentPercent - a.alignmentPercent),
     policyInsights: {
       criticalGapsCount: criticalGaps.length,
-      recommendedAction:
-        criticalGaps.length > 0
-          ? `Curriculum update recommended: DGT Trade syllabus lacks practical lab simulators for ${criticalGaps.map(g => g.skillName).slice(0, 2).join(' & ')}.`
-          : 'Existing trade syllabus is aligned with standard industrial job competencies.',
+      recommendedAction,
       trainerShortageRisk: criticalGaps.length > 1 ? 'HIGH' : 'MEDIUM',
       equipmentUpgradeRequired: ['400V-800V EV Isolation Test Rig', 'BMS CAN-bus Diagnostic Interface'],
     },

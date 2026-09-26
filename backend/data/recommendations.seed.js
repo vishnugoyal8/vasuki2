@@ -75,8 +75,8 @@ export const SEED_RECOMMENDATIONS = [
       primarySource: 'Bharat Forge, Force Motors & Engineering Cluster Survey',
     },
     suggestedActions: [
-      'Deploy 60 seats of cloud-enabled 5-Axis CAD/CAM simulation software across ITI Aundh and ITI Haveli.',
-      'Establish shared training time on Govt Polytechnic Pune’s existing 5-axis vertical machining center.',
+      'Deploy 60 seats of cloud-enabled 5-Axis CAD/CAM simulation software across model vocational training institutes.',
+      'Establish shared training time on Model Polytechnic Institute’s existing 5-axis vertical machining center.',
     ],
     targetInstitutes: ['INST_PUNE_AUNDH', 'INST_HAVELI_ITI', 'INST_POLY_PUNE'],
     status: 'PENDING_APPROVAL',

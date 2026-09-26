@@ -9,13 +9,15 @@ const LanguageContext = createContext({
 
 export const LanguageProvider = ({ children }) => {
   const [language, setLanguageState] = useState(() => {
-    const saved = localStorage.getItem('careersync_lang') || localStorage.getItem('mahaskill_lang');
+    const saved = localStorage.getItem('skillscan_lang') || localStorage.getItem('careersync_lang');
     return saved && ['en', 'mr', 'hi'].includes(saved) ? saved : 'en';
   });
 
   const setLanguage = (lang) => {
-    setLanguageState(lang);
-    localStorage.setItem('careersync_lang', lang);
+    if (['en', 'mr', 'hi'].includes(lang)) {
+      setLanguageState(lang);
+      localStorage.setItem('skillscan_lang', lang);
+    }
   };
 
   const t = translations[language] || translations.en;

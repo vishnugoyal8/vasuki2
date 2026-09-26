@@ -1,12 +1,120 @@
 @import "tailwindcss";
 
+@theme {
+  /* Tailwind v4 Government Modern Color Palette */
+  --color-navy: #003B70;
+  --color-navy-dark: #00284D;
+  --color-govblue: #0056A6;
+  --color-govblue-dark: #004080;
+  --color-govblue-light: #E8F1F8;
+  
+  --color-saffron: #F28C28;
+  --color-saffron-dark: #D96B1F;
+
+  --color-white: #FFFFFF;
+  --color-surface-soft: #F7F8FA;
+  --color-surface-blue: #E8F1F8;
+
+  --color-text-main: #222222;
+  --color-text-secondary: #666666;
+  --color-text-muted: #8A8A8A;
+
+  --color-border-gov: #DDE3E8;
+  --color-success-gov: #198754;
+  --color-warning-gov: #F4B942;
+  --color-error-gov: #C62828;
+
+  /* Semantic Default Tokens */
+  --color-primary: #003B70;
+  --color-primary-dark: #00284D;
+  --color-primary-blue: #0056A6;
+  --color-accent: #F28C28;
+  --color-accent-dark: #D96B1F;
+  --color-background: #FFFFFF;
+  --color-surface: #F7F8FA;
+  --color-text: #222222;
+  --color-text-muted: #666666;
+  --color-border: #DDE3E8;
+  --color-success: #198754;
+  --color-warning: #F4B942;
+  --color-error: #C62828;
+}
+
 @layer base {
-  body {
-    background-color: #F8FAFC;
-    color: #1E293B;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
-    -webkit-font-smoothing: antialiased;
+  :root {
+    --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    
+    /* Indian Government Modern Portal System */
+    --gov-navy: #003B70;
+    --gov-navy-dark: #00284D;
+    --gov-blue: #0056A6;
+    --gov-blue-light: #E8F1F8;
+    
+    --saffron-orange: #F28C28;
+    --dark-orange: #D96B1F;
+
+    --bg-white: #FFFFFF;
+    --bg-soft-gray: #F7F8FA;
+    --bg-light-blue: #E8F1F8;
+
+    --primary-text: #222222;
+    --secondary-text: #666666;
+    --muted-text: #8A8A8A;
+
+    --border: #DDE3E8;
+    --success: #198754;
+    --warning: #F4B942;
+    --error: #C62828;
   }
+  
+  html {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: #F7F8FA;
+    color: #222222;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  #root {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+    min-height: 100vh;
+  }
+
+  /* Accessible focus rings aligned to Government Blue */
+  :focus-visible {
+    outline: 2px solid #0056A6;
+    outline-offset: 2px;
+  }
+}
+
+/* Custom Scrollbar for Government Portal */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F7F8FA;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #DDE3E8;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0056A6;
 }
 
 /* Leaflet map container styling & pin fixes */
@@ -14,7 +122,7 @@
   font-family: inherit;
   width: 100%;
   height: 100%;
-  border-radius: 0.75rem;
+  border-radius: 0.375rem;
 }
 
 .custom-leaflet-pin {
@@ -22,7 +130,7 @@
   border: none;
 }
 
-/* Hide scrollbar for clean horizontal chip navigation */
+/* Utility to hide scrollbars where needed */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -30,4 +138,3 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-

@@ -31,7 +31,6 @@ export const Navbar = ({
     { id: 'market-intelligence', label: t.navMarketIntel, icon: TrendingUp },
     { id: 'skill-gap', label: t.navSkillGap, icon: GitPullRequest },
     { id: 'course-alignment', label: t.navCourseAlignment, icon: CheckSquare },
-    { id: 'job-analyzer', label: t.navJobAnalyzer, icon: Sparkles },
     { id: 'recommendations', label: t.navRecommendations, icon: Award },
     { id: 'district-plan', label: t.navDistrictPlan, icon: MapPin },
     { id: 'institute-dashboard', label: t.navInstitutes, icon: Building2 },
@@ -150,9 +149,6 @@ export const Navbar = ({
             >
               <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-slate-400'}`} />
               <span>{item.label}</span>
-              {item.id === 'job-analyzer' && (
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              )}
             </button>
           );
         })}
