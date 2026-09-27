@@ -8,12 +8,14 @@ import {
   Plus,
   Trash2,
   Sparkles,
+  FileUp,
 } from 'lucide-react';
 import { DashboardLayout } from '../../layouts/DashboardLayout.jsx';
 import { DataTable } from '../../components/common/DataTable.jsx';
 import { StatusBadge } from '../../components/common/StatusBadge.jsx';
 import { StatCard } from '../../components/common/StatCard.jsx';
 import { AiJobAnalyzerWidget } from '../../components/common/AiJobAnalyzerWidget.jsx';
+import { SyllabusPdfAuditWidget } from '../../components/common/SyllabusPdfAuditWidget.jsx';
 import { useLanguage } from '../../context/LanguageContext.jsx';
 import {
   INITIAL_STUDENTS_ROSTER,
@@ -184,6 +186,7 @@ export const InstitutePortalPage = ({ onNavigate, selectedDistrict = 'Pune' }) =
 
   const menuItems = [
     { id: 'students', label: 'Manage Students', icon: Users, badge: `${students.length}` },
+    { id: 'syllabus-audit', label: 'Syllabus PDF Audit & Alignment', icon: FileUp, badge: 'New AI' },
     { id: 'job-analyzer', label: 'AI Job & Demand Analyzer', icon: Sparkles, badge: 'Gemini AI' },
     { id: 'curriculum', label: 'Curriculum Analysis', icon: BookOpen },
     { id: 'alignment', label: 'Course Alignment', icon: GitPullRequest },
@@ -417,7 +420,16 @@ export const InstitutePortalPage = ({ onNavigate, selectedDistrict = 'Pune' }) =
         </div>
       )}
 
-      {/* 2. AI JOB & DEMAND ANALYZER */}
+      {/* 2. SYLLABUS PDF AUDIT & ALIGNMENT */}
+      {activeTab === 'syllabus-audit' && (
+        <SyllabusPdfAuditWidget
+          defaultDistrict={selectedDistrict}
+          onDeployToSyllabus={() => setActiveTab('alignment')}
+          onRequestLabGrant={() => setActiveTab('infrastructure')}
+        />
+      )}
+
+      {/* 3. AI JOB & DEMAND ANALYZER */}
       {activeTab === 'job-analyzer' && (
         <AiJobAnalyzerWidget mode="institute" selectedDistrict={selectedDistrict} />
       )}

@@ -18,7 +18,7 @@ import { useAuth } from '../../context/AuthContext.jsx';
 import { useLanguage } from '../../context/LanguageContext.jsx';
 
 export const GovNavbar = ({ activePage, onNavigate }) => {
-  const { user, isAuthenticated, logout, openLoginModal } = useAuth();
+  const { user, isAuthenticated, logout, openLoginModal, openRegisterModal } = useAuth();
   const { language, setLanguage, t } = useLanguage();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -50,7 +50,7 @@ export const GovNavbar = ({ activePage, onNavigate }) => {
           </span>
           <span className="text-[#0056A6] hidden sm:inline">|</span>
           <span className="hidden sm:inline text-[#E8F1F8] font-medium truncate">
-            {t.dvetTitle || 'Directorate of Vocational Education & Training (DVET)'}
+            {t.deptTitle || 'Dept. of Skills, Employment, Entrepreneurship & Innovation'} · DVET
           </span>
         </div>
 
@@ -127,14 +127,14 @@ export const GovNavbar = ({ activePage, onNavigate }) => {
           <div>
             <div className="flex items-center gap-2">
               <span className="text-xl sm:text-2xl font-black tracking-tight text-[#003B70] font-sans">
-                Career<span className="text-[#0056A6]">Sync</span>
+                Skill<span className="text-[#0056A6]">Scan</span>
               </span>
               <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#E8F1F8] text-[#003B70] border border-[#0056A6]/20 hidden md:inline">
-                DVET MAHARASHTRA
+                {t.portalBadge || 'MAHARASHTRA STATE'}
               </span>
             </div>
             <p className="text-[11px] text-[#666666] font-medium tracking-wide">
-              Directorate of Vocational Education &amp; Training
+              {t.appSubtitle || 'Labour Market Intelligence & Curriculum Alignment Platform'}
             </p>
           </div>
         </div>
@@ -213,18 +213,29 @@ export const GovNavbar = ({ activePage, onNavigate }) => {
               </button>
             </div>
           ) : (
-            <div className="relative" ref={dropdownRef}>
-              {/* Controlled Accent: Saffron Orange CTA Button */}
+            <div className="flex items-center gap-2">
+              {/* Register Action */}
               <button
-                onClick={() => setIsDropdownOpen(prev => !prev)}
-                className="flex items-center gap-2 px-4 py-2 rounded bg-[#F28C28] hover:bg-[#D96B1F] text-white text-xs font-bold shadow-xs transition-colors cursor-pointer"
-                aria-label="User Login Menu"
-                aria-expanded={isDropdownOpen}
+                type="button"
+                onClick={() => openRegisterModal('student')}
+                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 rounded bg-white hover:bg-[#E8F1F8] text-[#003B70] border border-[#0056A6]/30 text-xs font-bold transition-colors cursor-pointer"
+                title="Create a new role-based account"
               >
-                <User className="w-4 h-4 text-white" />
-                <span className="hidden sm:inline">{t.navPortalLogin || 'Portal Login'}</span>
-                <ChevronDown className={`w-3.5 h-3.5 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                <span>Register</span>
               </button>
+
+              <div className="relative" ref={dropdownRef}>
+                {/* Controlled Accent: Saffron Orange CTA Button */}
+                <button
+                  onClick={() => setIsDropdownOpen(prev => !prev)}
+                  className="flex items-center gap-2 px-4 py-2 rounded bg-[#F28C28] hover:bg-[#D96B1F] text-white text-xs font-bold shadow-xs transition-colors cursor-pointer"
+                  aria-label="User Login Menu"
+                  aria-expanded={isDropdownOpen}
+                >
+                  <User className="w-4 h-4 text-white" />
+                  <span className="hidden sm:inline">{t.navPortalLogin || 'Portal Login'}</span>
+                  <ChevronDown className={`w-3.5 h-3.5 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                </button>
 
               {/* Login Dropdown */}
               {isDropdownOpen && (
@@ -333,10 +344,25 @@ export const GovNavbar = ({ activePage, onNavigate }) => {
                       <ChevronRight className="w-3.5 h-3.5 text-stone-400 group-hover:text-[#0056A6]" />
                     </button>
                   </div>
+
+                  {/* Register Option in Dropdown */}
+                  <div className="p-2 border-t border-[#DDE3E8] bg-[#F7F8FA] text-center">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsDropdownOpen(false);
+                        openRegisterModal();
+                      }}
+                      className="w-full py-1.5 px-3 rounded bg-[#003B70] hover:bg-[#00284D] text-white text-[11px] font-bold transition-colors cursor-pointer"
+                    >
+                      + Create New Account (Register)
+                    </button>
+                  </div>
                 </div>
               )}
             </div>
-          )}
+          </div>
+        )}
 
           {/* Mobile menu toggle */}
           <button
@@ -412,12 +438,18 @@ export const GovNavbar = ({ activePage, onNavigate }) => {
             {t.navAboutDVET || 'About DVET'}
           </button>
 
-          <div className="pt-2 border-t border-[#DDE3E8]">
+          <div className="pt-2 border-t border-[#DDE3E8] flex gap-2">
             <button
               onClick={() => { setIsMobileMenuOpen(false); openLoginModal('student'); }}
-              className="w-full py-2.5 text-center rounded bg-[#F28C28] hover:bg-[#D96B1F] text-white font-bold text-xs shadow-xs"
+              className="flex-1 py-2.5 text-center rounded bg-[#F28C28] hover:bg-[#D96B1F] text-white font-bold text-xs shadow-xs"
             >
               {t.navPortalLogin || 'Portal Login'}
+            </button>
+            <button
+              onClick={() => { setIsMobileMenuOpen(false); openRegisterModal('student'); }}
+              className="flex-1 py-2.5 text-center rounded bg-[#003B70] hover:bg-[#00284D] text-white font-bold text-xs shadow-xs"
+            >
+              Register
             </button>
           </div>
         </div>

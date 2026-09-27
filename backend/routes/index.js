@@ -10,6 +10,9 @@ import recommendationRoutes from '../modules/recommendations/recommendation.rout
 import placementRoutes from '../modules/placements/placement.routes.js';
 import analyticsRoutes from '../modules/analytics/analytics.routes.js';
 import aiRoutes from '../modules/ai/ai.routes.js';
+import authRoutes from '../modules/auth/auth.routes.js';
+import curriculumRoutes from '../modules/curriculum/curriculum.routes.js';
+import trainingPlanRoutes from '../modules/training-plans/trainingPlan.routes.js';
 
 const router = Router();
 
@@ -18,7 +21,7 @@ router.get('/health', (req, res) => {
   res.json({
     status: 'online',
     timestamp: new Date().toISOString(),
-    platform: 'CareerSync - Skill Intelligence & Decision Support Platform',
+    platform: 'SkillScan - Skill Intelligence & Decision Support Platform',
     version: '1.0.0 (MERN Stack Edition - Refactored JS Architecture)',
     database: dbStore.getStatus(),
   });
@@ -45,5 +48,9 @@ router.use(employerRoutes);
 router.use(recommendationRoutes);
 router.use(placementRoutes);
 router.use(aiRoutes);
+router.use(curriculumRoutes);
+router.use(trainingPlanRoutes);
+router.use('/auth', authRoutes);
+router.use(authRoutes);
 
 export default router;

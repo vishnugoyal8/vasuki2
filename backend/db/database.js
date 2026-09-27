@@ -20,6 +20,10 @@ import { Institute } from '../models/Institute.js';
 import { EmployerFeedback } from '../models/EmployerFeedback.js';
 import { Recommendation } from '../models/Recommendation.js';
 import { Placement } from '../models/Placement.js';
+import { User } from '../models/User.js';
+import { SEED_USERS } from '../data/users.seed.js';
+import { DistrictTrainingPlan } from '../models/DistrictTrainingPlan.js';
+import { SEED_DISTRICT_TRAINING_PLANS } from '../data/districtPlans.seed.js';
 
 class DatabaseStore {
   constructor() {
@@ -32,6 +36,7 @@ class DatabaseStore {
     this.employerFeedback = [];
     this.recommendations = [];
     this.placements = [];
+    this.users = [];
     this.isInitialized = false;
     this.seedInMemory();
   }
@@ -61,6 +66,18 @@ class DatabaseStore {
         await Placement.insertMany(this.placements);
         console.log('[Database] MongoDB collections populated with Maharashtra Skill seed dataset.');
       }
+
+      const userCount = await User.countDocuments();
+      if (userCount === 0) {
+        await User.insertMany(this.users);
+        console.log('[Database] Initialized default institutional users in MongoDB Atlas.');
+      }
+
+      const planCount = await DistrictTrainingPlan.countDocuments();
+      if (planCount === 0) {
+        await DistrictTrainingPlan.insertMany(SEED_DISTRICT_TRAINING_PLANS);
+        console.log('[Database] Seeded Maharashtra District Training Plans in MongoDB Atlas.');
+      }
     } catch (e) {
       console.warn('[Database] Background MongoDB initial sync notice:', e.message);
     }
@@ -81,6 +98,7 @@ class DatabaseStore {
         employerFeedback: this.employerFeedback.length,
         recommendations: this.recommendations.length,
         placements: this.placements.length,
+        users: this.users.length,
       },
     };
   }
@@ -95,6 +113,7 @@ class DatabaseStore {
     this.employerFeedback = JSON.parse(JSON.stringify(SEED_EMPLOYER_FEEDBACK));
     this.recommendations = JSON.parse(JSON.stringify(SEED_RECOMMENDATIONS));
     this.placements = JSON.parse(JSON.stringify(SEED_PLACEMENTS));
+    this.users = JSON.parse(JSON.stringify(SEED_USERS));
     console.log('[Database] Seeded Pune/Maharashtra demo dataset successfully.');
   }
 

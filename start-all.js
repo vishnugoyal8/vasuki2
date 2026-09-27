@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename);
 const backendDir = path.resolve(__dirname, 'backend');
 const frontendDir = path.resolve(__dirname, 'frontend');
 
-console.log('🚀 Starting CareerSync / SkillScan Platform...');
+console.log('🚀 Starting SkillScan Platform...');
 console.log('📦 Starting Backend on http://localhost:5001 (dir: ' + backendDir + ')');
 console.log('💻 Starting Frontend on http://localhost:5173 (dir: ' + frontendDir + ')');
 

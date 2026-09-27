@@ -14,7 +14,7 @@ export const GovFooter = () => {
                 MH
               </div>
               <span className="text-base font-black text-white tracking-tight">
-                Career<span className="text-[#F28C28]">Sync</span>
+                Skill<span className="text-[#F28C28]">Scan</span>
               </span>
             </div>
             <p className="text-xs text-[#E8F1F8]/80 leading-relaxed">

@@ -1,10 +1,13 @@
 export const translations = {
   en: {
-    appName: 'CareerSync',
-    appSubtitle: 'Labour Market Intelligence System',
+    appName: 'SkillScan',
+    appSubtitle: 'Labour Market Intelligence & Curriculum Alignment Platform',
     tagline: 'A Smarter, Skilled Tomorrow',
     govtOfMaharashtra: 'GOVERNMENT OF MAHARASHTRA',
+    deptTitle: 'Dept. of Skills, Employment, Entrepreneurship & Innovation',
     dvetTitle: 'Directorate of Vocational Education & Training (DVET)',
+    msinsTitle: 'Maharashtra State Innovation Society (MSInS)',
+    portalBadge: 'Maharashtra State',
     decisionSupport: 'Decision Support',
     districtLabel: 'District',
     sectorLabel: 'Sector',
@@ -45,7 +48,7 @@ export const translations = {
     navEmployerFeedback: 'Employer Feedback',
 
     // Landing Page
-    heroTitle: 'CareerSync',
+    heroTitle: 'SkillScan',
     heroTagline: 'A Smarter, Skilled Tomorrow',
     heroDescription: 'Bridging Education, Industry and Opportunities. The official vocational intelligence and skilling governance portal of the Government of Maharashtra, connecting curricula with real-time labor market demands.',
     exploreAsGuest: 'Explore as Guest',
@@ -76,8 +79,8 @@ export const translations = {
     enrolledTrainees: 'Enrolled Trainees',
     annualCapacity: 'Annual vocational capacity',
 
-    // Who is CareerSync for
-    whoIsThisFor: 'Who is CareerSync for?',
+    // Who is SkillScan for
+    whoIsThisFor: 'Who is SkillScan for?',
     targetAudience: 'Target Audience & Access Levels',
     targetAudienceDesc: 'A unified vocational ecosystem connecting citizens, candidates, educators, industry leaders, and policy authorities under one roof.',
     rolePublicTitle: 'General Public & Aspirants',
@@ -172,11 +175,14 @@ export const translations = {
   },
 
   mr: {
-    appName: 'करिअरसिंक (CareerSync)',
-    appSubtitle: 'व्यवसाय शिक्षण व प्रशिक्षण संचालनालय (DVET)',
+    appName: 'स्किलस्कॅन (SkillScan)',
+    appSubtitle: 'श्रम बाजार बुद्धिमत्ता व अभ्यासक्रम संरेखन व्यासपीठ',
     tagline: 'एक हुशार, कुशल उद्यासाठी',
     govtOfMaharashtra: 'महाराष्ट्र शासन',
+    deptTitle: 'कौशल्य, रोजगार, उद्योजकता आणि नाविन्यता विभाग',
     dvetTitle: 'व्यवसाय शिक्षण व प्रशिक्षण संचालनालय (DVET)',
+    msinsTitle: 'महाराष्ट्र राज्य नाविन्यता सोसायटी (MSInS)',
+    portalBadge: 'महाराष्ट्र शासन',
     decisionSupport: 'निर्णय सहाय्य',
     districtLabel: 'जिल्हा',
     sectorLabel: 'क्षेत्र',
@@ -217,7 +223,7 @@ export const translations = {
     navEmployerFeedback: 'उद्योजक अभिप्राय',
 
     // Landing Page
-    heroTitle: 'करिअरसिंक (CareerSync)',
+    heroTitle: 'स्किलस्कॅन (SkillScan)',
     heroTagline: 'एक हुशार, कुशल उद्यासाठी',
     heroDescription: 'शिक्षण, उद्योग आणि संधींचा संगम. महाराष्ट्र शासनाचे अधिकृत व्यावसायिक बुद्धिमत्ता व कौशल्य प्रशासन पोर्टल, जे अभ्यासक्रमांना थेट औद्योगिक मागण्यांशी जोडते.',
     exploreAsGuest: 'अतिथी म्हणून एक्सप्लोर करा',
@@ -248,8 +254,8 @@ export const translations = {
     enrolledTrainees: 'प्रवेशित प्रशिक्षणार्थी',
     annualCapacity: 'वार्षिक व्यावसायिक क्षमता',
 
-    // Who is CareerSync for
-    whoIsThisFor: 'CareerSync कोणासाठी आहे?',
+    // Who is SkillScan for
+    whoIsThisFor: 'SkillScan कोणासाठी आहे?',
     targetAudience: 'लक्षित वापरकर्ते व प्रवेश स्तर',
     targetAudienceDesc: 'नागरिक, विद्यार्थी, शिक्षक, उद्योगपती आणि धोरणकर्ते यांना एकाच छत्राखाली जोडणारी एकात्मिक प्रणाली.',
     rolePublicTitle: 'सर्वसामान्य नागरिक व इच्छुक',
@@ -344,11 +350,14 @@ export const translations = {
   },
 
   hi: {
-    appName: 'करियरसिंक (CareerSync)',
-    appSubtitle: 'व्यावसायिक शिक्षा एवं प्रशिक्षण निदेशालय (DVET)',
+    appName: 'स्किलस्कैन (SkillScan)',
+    appSubtitle: 'श्रम बाज़ार आसूचना एवं पाठ्यक्रम संरेखण मंच',
     tagline: 'एक कुशल, सक्षम कल के लिए',
     govtOfMaharashtra: 'महाराष्ट्र सरकार',
+    deptTitle: 'कौशल, रोजगार, उद्यमिता एवं नवाचार विभाग',
     dvetTitle: 'व्यावसायिक शिक्षा एवं प्रशिक्षण निदेशालय (DVET)',
+    msinsTitle: 'महाराष्ट्र राज्य नवाचार सोसायटी (MSInS)',
+    portalBadge: 'महाराष्ट्र सरकार',
     decisionSupport: 'निर्णय समर्थन',
     districtLabel: 'ज़िला',
     sectorLabel: 'क्षेत्र',
@@ -389,7 +398,7 @@ export const translations = {
     navEmployerFeedback: 'नियोक्ता प्रतिक्रिया',
 
     // Landing Page
-    heroTitle: 'करियरसिंक (CareerSync)',
+    heroTitle: 'स्किलस्कैन (SkillScan)',
     heroTagline: 'एक कुशल, सक्षम कल के लिए',
     heroDescription: 'शिक्षा, उद्योग और अवसरों का संगम। महाराष्ट्र सरकार का आधिकारिक व्यावसायिक आसूचना एवं कौशल शासन पोर्टल, जो पाठ्यक्रमों को वास्तविक समय की श्रम बाज़ार मांगों से जोड़ता है।',
     exploreAsGuest: 'अतिथि के रूप में एक्सप्लोर करें',
@@ -420,8 +429,8 @@ export const translations = {
     enrolledTrainees: 'नामांकित छात्र',
     annualCapacity: 'वार्षिक व्यावसायिक क्षमता',
 
-    // Who is CareerSync for
-    whoIsThisFor: 'CareerSync किसके लिए है?',
+    // Who is SkillScan for
+    whoIsThisFor: 'SkillScan किसके लिए है?',
     targetAudience: 'लक्षित उपयोगकर्ता एवं पहुंच स्तर',
     targetAudienceDesc: 'नागरिकों, छात्रों, शिक्षकों, उद्योगपतियों और नीति निर्माताओं को एक मंच पर जोड़ने वाली एकीकृत प्रणाली।',
     rolePublicTitle: 'सामान्य नागरिक एवं आकांक्षी',

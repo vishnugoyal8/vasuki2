@@ -1,6 +1,10 @@
 # SkillScan Platform (MERN Architecture)
 
-Skill intelligence, labour-market analytics, and trade-curriculum alignment decision platform for the Directorate of Vocational Education & Training (DVET), Government of Maharashtra.
+**Organization**: Government Of Maharashtra  
+**Department**: Maharashtra State Innovation Society (MSInS), Department of Skills, Employment, Entrepreneurship and Innovation  
+**Executive Directorate**: Directorate of Vocational Education & Training (DVET)
+
+Skill intelligence, labour-market analytics, and trade-curriculum alignment decision platform turning industry demand signals into district-, role-, and institute-level training recommendations.
 
 ---
 

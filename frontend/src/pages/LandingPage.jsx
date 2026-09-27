@@ -12,12 +12,13 @@ import {
   Compass,
   CheckCircle2,
   FileCheck,
+  UserPlus,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext.jsx';
 import { useLanguage } from '../context/LanguageContext.jsx';
 
 export const LandingPage = ({ onNavigate }) => {
-  const { openLoginModal } = useAuth();
+  const { openLoginModal, openRegisterModal } = useAuth();
   const { t, language } = useLanguage();
 
   // Subtle interactive elevation for the hero card
@@ -119,7 +120,7 @@ export const LandingPage = ({ onNavigate }) => {
           <div className="lg:col-span-7 space-y-6 text-left">
             <div className="space-y-3">
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#003B70] tracking-tight leading-tight">
-                Career<span className="text-[#0056A6]">Sync</span>
+                Skill<span className="text-[#0056A6]">Scan</span>
               </h1>
               <p className="text-lg sm:text-xl font-bold text-[#0056A6]">
                 &ldquo;{t.heroTagline || t.tagline || 'A Smarter, Skilled Tomorrow'}&rdquo;
@@ -137,6 +138,14 @@ export const LandingPage = ({ onNavigate }) => {
               >
                 <Compass className="w-4 h-4 text-white" />
                 <span>{t.explorePublicData || 'Explore Public Data'}</span>
+              </button>
+
+              <button
+                onClick={() => openRegisterModal('student')}
+                className="px-6 py-3 rounded bg-[#003B70] hover:bg-[#00284D] text-white text-xs sm:text-sm font-bold shadow-xs transition-colors flex items-center gap-2 cursor-pointer"
+              >
+                <UserPlus className="w-4 h-4 text-white" />
+                <span>Register Account</span>
               </button>
 
               <button
@@ -282,14 +291,14 @@ export const LandingPage = ({ onNavigate }) => {
         </div>
       </section>
 
-      {/* 3. "WHO IS CAREERSYNC FOR?" - SIX ROLE TILES */}
+      {/* 3. "WHO IS SKILLSCAN FOR?" - SIX ROLE TILES */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <div className="text-center max-w-3xl mx-auto space-y-2">
           <span className="text-xs font-bold uppercase tracking-wider text-[#0056A6]">
             {t.targetAudience || 'Target Audience & Access Levels'}
           </span>
           <h2 className="text-2xl sm:text-3xl font-black text-[#003B70] tracking-tight">
-            {t.whoIsThisFor || 'Who is CareerSync for?'}
+            {t.whoIsThisFor || 'Who is SkillScan for?'}
           </h2>
           <p className="text-xs sm:text-sm text-[#666666]">
             {t.targetAudienceDesc || 'A unified vocational ecosystem connecting citizens, candidates, educators, industry leaders, and policy authorities under one roof.'}
@@ -319,7 +328,7 @@ export const LandingPage = ({ onNavigate }) => {
                   </div>
                 </div>
 
-                <div className="pt-6">
+                <div className="pt-6 space-y-2">
                   <button
                     onClick={tile.action}
                     className="w-full py-2.5 px-4 rounded border border-[#DDE3E8] hover:border-[#0056A6] text-[#0056A6] hover:bg-[#0056A6] hover:text-white text-xs font-bold transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-2xs"
@@ -327,6 +336,16 @@ export const LandingPage = ({ onNavigate }) => {
                     <span>{tile.cta}</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </button>
+
+                  {tile.roleKey !== 'guest' && (
+                    <button
+                      type="button"
+                      onClick={() => openRegisterModal(tile.roleKey)}
+                      className="w-full py-1 text-center text-[11px] text-[#666666] hover:text-[#003B70] font-semibold hover:underline cursor-pointer"
+                    >
+                      + Register New {tile.title.split('&')[0].trim()}
+                    </button>
+                  )}
                 </div>
               </div>
             );

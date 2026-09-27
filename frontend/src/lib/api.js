@@ -1,5 +1,5 @@
 /**
- * API Client for CareerSync Platform (JavaScript)
+ * API Client for SkillScan Platform (JavaScript)
  */
 
 export async function fetchStats(district = 'Pune') {
@@ -364,3 +364,88 @@ export async function resetSeedDataset() {
   if (!res.ok) throw new Error('Failed to reset dataset');
   return res.json();
 }
+
+export async function fetchSampleSyllabi() {
+  const res = await fetch('/api/curriculum/samples');
+  if (!res.ok) throw new Error('Failed to fetch sample syllabi');
+  const data = await res.json();
+  return data.data || data;
+}
+
+export async function auditSyllabusPdf({
+  file,
+  base64,
+  rawText,
+  fileName,
+  tradeSector,
+  district,
+  sampleId,
+}) {
+  let res;
+  if (file) {
+    const formData = new FormData();
+    formData.append('syllabusFile', file);
+    if (tradeSector) formData.append('tradeSector', tradeSector);
+    if (district) formData.append('district', district);
+    if (fileName) formData.append('fileName', fileName);
+    res = await fetch('/api/curriculum/audit', {
+      method: 'POST',
+      body: formData,
+    });
+  } else {
+    res = await fetch('/api/curriculum/audit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        base64,
+        rawText,
+        fileName,
+        tradeSector,
+        district,
+        sampleId,
+      }),
+    });
+  }
+
+  if (!res.ok) {
+    const errData = await res.json().catch(() => ({}));
+    throw new Error(errData.message || 'Failed to audit syllabus');
+  }
+
+  const data = await res.json();
+  return data.data || data;
+}
+
+export async function fetchDistrictTrainingPlans() {
+  const res = await fetch('/api/training-plans');
+  if (!res.ok) throw new Error('Failed to fetch district training plans');
+  return res.json();
+}
+
+export async function fetchDistrictTrainingPlan(district = 'Pune') {
+  const res = await fetch(`/api/training-plans/${encodeURIComponent(district)}`);
+  if (!res.ok) throw new Error(`Failed to fetch district training plan for ${district}`);
+  return res.json();
+}
+
+export async function recalculateDistrictTrainingPlan(district = 'Pune', focusAreas = []) {
+  const res = await fetch('/api/training-plans/recalculate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ district, focusAreas }),
+  });
+  if (!res.ok) throw new Error('Failed to recalculate training plan');
+  return res.json();
+}
+
+export async function updateDistrictTrainingPlan(planId, data) {
+  const res = await fetch(`/api/training-plans/${encodeURIComponent(planId)}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) throw new Error('Failed to update training plan');
+  return res.json();
+}
+
+

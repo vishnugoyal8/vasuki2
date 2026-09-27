@@ -148,7 +148,7 @@ export const DashboardLayout = ({
               </div>
               <div>
                 <span className="text-base font-black text-white tracking-tight">
-                  Career<span className="text-[#F28C28]">Sync</span>
+                  Skill<span className="text-[#F28C28]">Scan</span>
                 </span>
                 <div className="text-[10px] text-[#E8F1F8] font-medium">
                   {language === 'mr' ? 'DVET महाराष्ट्र शासन' : language === 'hi' ? 'DVET महाराष्ट्र शासन' : 'DVET Maharashtra'}
@@ -267,7 +267,7 @@ export const DashboardLayout = ({
             </span>
             <span className="text-[#0056A6] hidden sm:inline">|</span>
             <span className="hidden sm:inline text-[#E8F1F8] truncate">
-              {t.dvetTitle || 'Directorate of Vocational Education & Training (DVET)'}
+              {t.deptTitle || 'Dept. of Skills, Employment, Entrepreneurship & Innovation'} · DVET
             </span>
           </div>
 
@@ -296,7 +296,7 @@ export const DashboardLayout = ({
                   onClick={() => onNavigate && onNavigate('landing')}
                   className="hover:text-[#0056A6] cursor-pointer shrink-0 font-medium"
                 >
-                  CareerSync
+                  SkillScan
                 </button>
                 <ChevronRight className="w-3 h-3 text-[#DDE3E8] shrink-0" />
                 <span className="capitalize shrink-0 text-[#666666]">{currentRoleBadge}</span>

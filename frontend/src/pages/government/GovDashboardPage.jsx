@@ -18,6 +18,7 @@ import { StatCard } from '../../components/common/StatCard.jsx';
 import { StatusBadge } from '../../components/common/StatusBadge.jsx';
 import { GovBarChart } from '../../components/charts/GovBarChart.jsx';
 import { MaharashtraMap } from '../../components/MaharashtraMap.jsx';
+import { DistrictTrainingPlanStudio } from '../../components/common/DistrictTrainingPlanStudio.jsx';
 import {
   MAHARASHTRA_DISTRICTS_DATA,
 } from '../../data/districts.data.js';
@@ -201,7 +202,7 @@ export const GovDashboardPage = ({
 
   const menuItems = [
     { id: 'demand-analysis', label: 'District Demand Analysis', icon: MapPin },
-    { id: 'training-planning', label: 'Training Planning Tools', icon: Layers },
+    { id: 'training-planning', label: 'District Training Plan (DSDP)', icon: Layers, badge: 'Official DSDP' },
     { id: 'policy-insights', label: 'Policy Insights', icon: FileText, badge: 'Gazetted' },
     { id: 'ecosystem-monitoring', label: 'Ecosystem Monitoring', icon: Activity },
   ];
@@ -331,51 +332,9 @@ export const GovDashboardPage = ({
         </div>
       )}
 
-      {/* 2. TRAINING PLANNING TOOLS */}
+      {/* 2. DISTRICT SKILL DEVELOPMENT PLAN (DSDP) STUDIO */}
       {activeTab === 'training-planning' && (
-        <div className="space-y-6">
-          <div className="bg-white rounded-lg border border-[#DDE3E8] shadow-2xs overflow-hidden">
-            <div className="p-4 bg-[#F7F8FA] border-b border-[#DDE3E8]">
-              <h3 className="text-sm font-bold text-[#003B70]">
-                {str.planningHeading}
-              </h3>
-              <p className="text-xs text-[#666666]">
-                {str.planningSub}
-              </p>
-            </div>
-
-            <div className="divide-y divide-[#DDE3E8]">
-              {GOV_DISTRICT_PLANS.map((plan, idx) => (
-                <div key={idx} className="p-5 space-y-3 hover:bg-[#F7F8FA] transition-colors">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                    <div className="flex items-center gap-2">
-                      <span className="text-base font-bold text-[#003B70]">{plan.district}</span>
-                      <span className="px-2.5 py-0.5 rounded text-[10px] font-mono font-bold bg-[#E8F1F8] text-[#0056A6] border border-[#DDE3E8]">
-                        {plan.sanctionedBudget}
-                      </span>
-                    </div>
-                    <StatusBadge status={plan.status} />
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
-                    <div className="p-3 bg-[#F7F8FA] rounded border border-[#DDE3E8]">
-                      <span className="text-[10px] font-bold text-[#666666] uppercase">Target ITIs</span>
-                      <p className="font-medium text-[#222222] mt-0.5">{plan.itiModernizationTarget}</p>
-                    </div>
-                    <div className="p-3 bg-[#F7F8FA] rounded border border-[#DDE3E8]">
-                      <span className="text-[10px] font-bold text-[#666666] uppercase">Seat Expansion</span>
-                      <p className="font-medium text-[#222222] mt-0.5">{plan.allocatedSeats}</p>
-                    </div>
-                    <div className="p-3 bg-[#F7F8FA] rounded border border-[#DDE3E8]">
-                      <span className="text-[10px] font-bold text-[#666666] uppercase">Funding Channel</span>
-                      <p className="font-medium text-[#222222] mt-0.5">{plan.funderAllocation}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        <DistrictTrainingPlanStudio defaultDistrict={district} />
       )}
 
       {/* 3. POLICY INSIGHTS */}

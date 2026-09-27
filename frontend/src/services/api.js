@@ -1,5 +1,5 @@
 /**
- * Centralized API client for CareerSync platform
+ * Centralized API client for SkillScan platform
  */
 
 const BASE_URL = '/api';
@@ -61,6 +61,23 @@ export const apiClient = {
       throw new Error(errData.error || `HTTP ${res.status}: Failed to DELETE ${endpoint}`);
     }
     return res.json();
+  },
+
+  // Auth & Registration Services
+  async register(userData) {
+    return this.post('/auth/register', userData);
+  },
+
+  async login(credentials) {
+    return this.post('/auth/login', credentials);
+  },
+
+  async sendOtp(target) {
+    return this.post('/auth/send-otp', { target });
+  },
+
+  async verifyOtp(target, code) {
+    return this.post('/auth/verify-otp', { target, code });
   },
 };
 

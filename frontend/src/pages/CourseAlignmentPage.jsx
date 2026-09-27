@@ -7,14 +7,18 @@ import {
   Wrench,
   Clock,
   Building2,
+  FileUp,
+  BookOpen,
 } from 'lucide-react';
 import { fetchCourses, fetchCourseAlignment } from '../lib/api.js';
+import { SyllabusPdfAuditWidget } from '../components/common/SyllabusPdfAuditWidget.jsx';
 
 export const CourseAlignmentPage = ({ onNavigate }) => {
   const [courses, setCourses] = useState([]);
   const [selectedCourseId, setSelectedCourseId] = useState('COURSE_ITI_EV_TECH');
   const [alignmentData, setAlignmentData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [viewMode, setViewMode] = useState('preset'); // 'preset' | 'upload'
 
   useEffect(() => {
     fetchCourses()
@@ -42,7 +46,7 @@ export const CourseAlignmentPage = ({ onNavigate }) => {
 
   return (
     <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto space-y-6">
-      {/* Header & Course Switcher */}
+      {/* Header & Mode Switcher */}
       <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
@@ -58,22 +62,62 @@ export const CourseAlignmentPage = ({ onNavigate }) => {
           </p>
         </div>
 
-        {/* Course Select Dropdown */}
-        <div className="flex items-center gap-2">
-          <label className="text-xs font-bold text-slate-600">Select Trade / Course:</label>
-          <select
-            value={selectedCourseId}
-            onChange={e => setSelectedCourseId(e.target.value)}
-            className="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:outline-none focus:border-indigo-500 cursor-pointer"
+        {/* Mode Switcher Tabs */}
+        <div className="flex items-center gap-2 bg-slate-100 p-1 rounded-xl">
+          <button
+            onClick={() => setViewMode('preset')}
+            className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+              viewMode === 'preset'
+                ? 'bg-white text-indigo-700 shadow-xs'
+                : 'text-slate-600 hover:text-slate-900'
+            }`}
           >
-            {courses.map(c => (
-              <option key={c.courseId} value={c.courseId}>
-                {c.title} ({c.courseCode})
-              </option>
-            ))}
-          </select>
+            <BookOpen className="w-3.5 h-3.5" />
+            Standard DGT Trades
+          </button>
+          <button
+            onClick={() => setViewMode('upload')}
+            className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+              viewMode === 'upload'
+                ? 'bg-white text-indigo-700 shadow-xs'
+                : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            <FileUp className="w-3.5 h-3.5" />
+            Upload Syllabus PDF (AI Audit)
+          </button>
         </div>
       </div>
+
+      {viewMode === 'upload' ? (
+        <SyllabusPdfAuditWidget
+          onDeployToSyllabus={() => {
+            setViewMode('preset');
+            if (onNavigate) onNavigate('recommendations');
+          }}
+        />
+      ) : (
+        <>
+          {/* Course Select Dropdown Bar */}
+          <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-xs flex items-center justify-between gap-4">
+            <div className="text-xs text-slate-600">
+              Auditing standardized Directorate General of Training (DGT) model vocational curricula against live Pune Chakan manufacturing telemetry.
+            </div>
+            <div className="flex items-center gap-2 shrink-0">
+              <label className="text-xs font-bold text-slate-700">Select Trade / Course:</label>
+              <select
+                value={selectedCourseId}
+                onChange={e => setSelectedCourseId(e.target.value)}
+                className="px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:outline-none focus:border-indigo-500 cursor-pointer"
+              >
+                {courses.map(c => (
+                  <option key={c.courseId} value={c.courseId}>
+                    {c.title} ({c.courseCode})
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
 
       {/* Course Overview & Alignment Score Card */}
       {course && (
@@ -239,6 +283,8 @@ export const CourseAlignmentPage = ({ onNavigate }) => {
           </button>
         </div>
       </div>
+      </>
+      )}
     </div>
   );
 };

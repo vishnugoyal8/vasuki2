@@ -1,5 +1,5 @@
 {
-  "name": "careersync-backend",
+  "name": "skillscan-backend",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -12,6 +12,8 @@
     "cors": "^2.8.6",
     "dotenv": "^17.2.3",
     "express": "^4.21.2",
-    "mongoose": "^9.9.4"
+    "mongoose": "^9.9.4",
+    "multer": "^2.4.0",
+    "pdf-parse": "^2.4.5"
   }
 }

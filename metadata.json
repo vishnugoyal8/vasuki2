@@ -1,6 +1,6 @@
 {
-  "name": "CareerSync - Skill Intelligence & Training Planning Platform",
-  "description": "Labour-market intelligence and curriculum-alignment decision support platform for the Government of Maharashtra, turning industry demand signals into district-, role-, and institute-level training recommendations.",
+  "name": "SkillScan - Skill Intelligence & Training Planning Platform",
+  "description": "Labour-market intelligence and curriculum-alignment decision support platform for the Government of Maharashtra (Dept. of Skills, Employment, Entrepreneurship & Innovation / DVET / MSInS).",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

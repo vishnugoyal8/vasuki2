@@ -61,7 +61,7 @@ export const Navbar = ({
                 {t.appName}
               </h1>
               <span className="px-1.5 py-0.2 rounded bg-blue-900/60 text-blue-300 text-[10px] font-semibold border border-blue-700/50 hidden sm:inline">
-                {t.decisionSupport}
+                {t.decisionSupport || 'Decision Support'}
               </span>
             </div>
             <p className="text-[10px] text-slate-400 uppercase tracking-wider">

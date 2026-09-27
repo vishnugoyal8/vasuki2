@@ -1,19 +1,25 @@
 @import "tailwindcss";
 
 @theme {
-  /* Tailwind v4 Government Modern Color Palette */
-  --color-navy: #003B70;
-  --color-navy-dark: #00284D;
-  --color-govblue: #0056A6;
-  --color-govblue-dark: #004080;
-  --color-govblue-light: #E8F1F8;
+  /* Tailwind v4 Modern Teal Color Palette */
+  --color-teal-primary: #0F766E;
+  --color-teal-dark: #042F2E;
+  --color-teal-accent: #0D9488;
+  --color-teal-light: #E6F4F1;
+
+  --color-navy: #0F766E;
+  --color-navy-dark: #042F2E;
+  --color-govblue: #0D9488;
+  --color-govblue-dark: #115E59;
+  --color-govblue-light: #E6F4F1;
   
   --color-saffron: #F28C28;
   --color-saffron-dark: #D96B1F;
 
   --color-white: #FFFFFF;
   --color-surface-soft: #F7F8FA;
-  --color-surface-blue: #E8F1F8;
+  --color-surface-blue: #E6F4F1;
+  --color-surface-teal: #E6F4F1;
 
   --color-text-main: #222222;
   --color-text-secondary: #666666;
@@ -25,9 +31,9 @@
   --color-error-gov: #C62828;
 
   /* Semantic Default Tokens */
-  --color-primary: #003B70;
-  --color-primary-dark: #00284D;
-  --color-primary-blue: #0056A6;
+  --color-primary: #0F766E;
+  --color-primary-dark: #042F2E;
+  --color-primary-blue: #0D9488;
   --color-accent: #F28C28;
   --color-accent-dark: #D96B1F;
   --color-background: #FFFFFF;
@@ -44,18 +50,24 @@
   :root {
     --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     
-    /* Indian Government Modern Portal System */
-    --gov-navy: #003B70;
-    --gov-navy-dark: #00284D;
-    --gov-blue: #0056A6;
-    --gov-blue-light: #E8F1F8;
+    /* Modern Government Portal Teal Theme */
+    --gov-navy: #0F766E;
+    --gov-navy-dark: #042F2E;
+    --gov-blue: #0D9488;
+    --gov-blue-light: #E6F4F1;
+
+    --gov-teal: #0F766E;
+    --gov-teal-dark: #042F2E;
+    --gov-teal-accent: #0D9488;
+    --gov-teal-light: #E6F4F1;
     
     --saffron-orange: #F28C28;
     --dark-orange: #D96B1F;
 
     --bg-white: #FFFFFF;
     --bg-soft-gray: #F7F8FA;
-    --bg-light-blue: #E8F1F8;
+    --bg-light-blue: #E6F4F1;
+    --bg-light-teal: #E6F4F1;
 
     --primary-text: #222222;
     --secondary-text: #666666;
@@ -91,9 +103,9 @@
     min-height: 100vh;
   }
 
-  /* Accessible focus rings aligned to Government Blue */
+  /* Accessible focus rings aligned to Teal */
   :focus-visible {
-    outline: 2px solid #0056A6;
+    outline: 2px solid #0D9488;
     outline-offset: 2px;
   }
 }
@@ -114,7 +126,7 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #0056A6;
+  background: #0D9488;
 }
 
 /* Leaflet map container styling & pin fixes */
