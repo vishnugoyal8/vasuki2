@@ -289,7 +289,7 @@ export const GovDashboardPage = ({
                 </p>
               </div>
 
-              <div className="h-[360px] rounded-lg overflow-hidden border border-[#DDE3E8]">
+              <div className="w-full">
                 <MaharashtraMap
                   selectedDistrict={district}
                   onSelectDistrict={handleDistrictChange}
