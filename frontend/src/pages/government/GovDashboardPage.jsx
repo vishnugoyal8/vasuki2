@@ -277,9 +277,9 @@ export const GovDashboardPage = ({
           </div>
 
           {/* Interactive GIS Map & Supply-Demand Chart */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
             {/* GIS Map */}
-            <div className="lg:col-span-7 bg-white p-5 rounded-lg border border-[#DDE3E8] shadow-2xs space-y-4">
+            <div className="lg:col-span-7 bg-white p-5 rounded-lg border border-[#DDE3E8] shadow-2xs space-y-3">
               <div>
                 <h3 className="text-sm font-bold text-[#003B70]">
                   {str.gisHeading}
@@ -293,30 +293,64 @@ export const GovDashboardPage = ({
                 <MaharashtraMap
                   selectedDistrict={district}
                   onSelectDistrict={handleDistrictChange}
+                  onOpenDsdpPlan={(targetDist) => {
+                    if (targetDist) handleDistrictChange(targetDist);
+                    setActiveTab('training-planning');
+                  }}
                 />
               </div>
             </div>
 
             {/* Supply vs Demand Deficit Breakdown */}
-            <div className="lg:col-span-5 bg-white p-5 rounded-lg border border-[#DDE3E8] shadow-2xs space-y-4 flex flex-col justify-between">
+            <div className="lg:col-span-5 bg-white p-5 rounded-lg border border-[#DDE3E8] shadow-2xs space-y-4">
               <div>
-                <h3 className="text-sm font-bold text-[#003B70]">
-                  {str.supplyDemandHeading(district)}
-                </h3>
-                <p className="text-xs text-[#666666]">
+                <div className="flex items-center justify-between gap-2">
+                  <h3 className="text-sm font-bold text-[#003B70]">
+                    {str.supplyDemandHeading(district)}
+                  </h3>
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#E8F1F8] text-[#003B70] border border-[#0056A6]/20">
+                    {activeDistrictObj.topSector}
+                  </span>
+                </div>
+                <p className="text-xs text-[#666666] mt-0.5">
                   {str.supplyDemandSub}
                 </p>
+              </div>
+
+              {/* District Overview Quick Metrics */}
+              <div className="grid grid-cols-3 gap-2">
+                <div className="bg-[#F7F8FA] p-2 rounded border border-[#EAEAEA] text-center">
+                  <div className="text-[10px] text-[#666666] font-semibold">Demand Index</div>
+                  <div className="text-sm font-bold text-[#003B70]">{activeDistrictObj.demandScore}/100</div>
+                </div>
+                <div className="bg-[#F7F8FA] p-2 rounded border border-[#EAEAEA] text-center">
+                  <div className="text-[10px] text-[#666666] font-semibold">Active Jobs</div>
+                  <div className="text-sm font-bold text-[#D96B1F]">{activeDistrictObj.activeJobCount?.toLocaleString()}</div>
+                </div>
+                <div className="bg-[#F7F8FA] p-2 rounded border border-[#EAEAEA] text-center">
+                  <div className="text-[10px] text-[#666666] font-semibold">Govt ITIs</div>
+                  <div className="text-sm font-bold text-[#222222]">{activeDistrictObj.itiCount}</div>
+                </div>
               </div>
 
               <GovBarChart
                 data={supplyDemandData}
                 xKey="role"
-                height={300}
+                height={260}
                 bars={[
                   { key: 'industryDemand', label: str.industryDemandBar, color: '#D96B1F' },
                   { key: 'itiPassouts', label: str.itiPassoutsBar, color: '#F28C28' },
                 ]}
               />
+
+              <button
+                type="button"
+                onClick={() => setActiveTab('training-planning')}
+                className="w-full py-2 px-3 rounded text-xs font-bold bg-[#E8F1F8] hover:bg-[#D4E6F4] text-[#003B70] border border-[#0056A6]/20 flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-2xs"
+              >
+                <span>Open {district} District Training Plan (DSDP)</span>
+                <ArrowUpRight className="w-3.5 h-3.5 text-[#0056A6]" />
+              </button>
 
               <div className="p-3 bg-[#C62828]/10 border border-[#C62828]/30 rounded text-xs text-[#C62828] space-y-1">
                 <div className="font-bold flex items-center gap-1.5 text-[#C62828]">
